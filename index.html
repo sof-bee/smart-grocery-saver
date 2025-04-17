@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Grocery Saver</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4fdf4;
+      color: #333;
+    }
+    header, nav, footer {
+      background-color: #006400;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 2rem;
+      margin: 1rem auto;
+      max-width: 900px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #228B22;
+    }
+    .product.red { color: red; }
+    .product.orange { color: orange; }
+    .product.green { color: green; }
+    .product.expired { color: gray; text-decoration: line-through; }
+    button {
+      background-color: #228B22;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input, select {
+      margin: 5px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #progress progress {
+      width: 100%;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Smart Grocery Saver</h1>
+    <p>Let’s make every bite count!</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="upload.html">Grocery Upload</a>
+    <a href="fridge.html">Fridge Dashboard</a>
+    <a href="recipes.html">Recipes</a>
+    <a href="report.html">Waste Report</a>
+  </nav>
+
+  <section>
+    <h2>Welcome!</h2>
+    <p>This is your central hub to save food, reduce waste, and make an impact. Use the menu above to start managing your groceries sustainably.</p>
+    <ul>
+      <li>📸 Scan receipts and track expiration dates</li>
+      <li>🧊 Monitor your fridge</li>
+      <li>🍽️ Get recipes using food nearing expiration</li>
+      <li>📊 Track your waste reduction goals</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© 2025 Smart Grocery Saver | GDPR Compliant</p>
+  </footer>
+</body>
+</html>
