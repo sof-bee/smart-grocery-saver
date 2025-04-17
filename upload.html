@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Receipt | Smart Grocery Saver</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>Smart Grocery Saver</h1></header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="upload.html">Grocery Upload</a>
+    <a href="fridge.html">Fridge Dashboard</a>
+    <a href="recipes.html">Recipes</a>
+    <a href="report.html">Waste Report</a>
+  </nav>
+
+  <section>
+    <h2>📸 Upload Your Receipt</h2>
+<input type="file" id="imageInput" accept="image/*">
+<button onclick="scanImage()">Scan with OCR</button>
+
+<pre id="ocrResult" style="background:#f8f8f8;padding:10px;border:1px solid #ddd;margin-top:10px;"></pre>
+
+<div id="productList"></div>
+
+  
+  </section>
+
+  <footer><p>© 2025 Smart Grocery Saver</p></footer>
+
+  <!-- OCR Script -->
+<script>
+  async function scanImage() {
+    const input = document.getElementById('imageInput');
+    const result = document.getElementById('ocrResult');
+    const productList = document.getElementById('productList');
+    productList.innerHTML = '';
+
+    if (!input.files.length) return alert('Please upload an image.');
+
+    const formData = new FormData();
+    formData.append("file", input.files[0]);
+    formData.append("language", "eng");
+    formData.append("isOverlayRequired", "false");
+
+    const response = await fetch("https://api.ocr.space/parse/image", {
+      method: "POST",
+      headers: {
+        apikey: "helloworld" // free demo key
+      },
+      body: formData
+    });
+
+    const data = await response.json();
+    const text = data.ParsedResults[0]?.ParsedText || "No text found.";
+    result.textContent = text;
+
+    // Extract product names (all-uppercase lines)
+    const lines = text.split('\n');
+    const products = lines.filter(line => /^[A-Z][A-Z ]+$/.test(line.trim()));
+
+    products.forEach(product => {
+      const cleanName = product.trim();
+      const row = document.createElement('div');
+      row.innerHTML = `
+        <label>${cleanName}</label>
+        <input type="date" id="exp-${cleanName}">
+        <button onclick="saveItem('${cleanName}')">Add</button>
+      `;
+      productList.appendChild(row);
+    });
+  }
+
+  function saveItem(name) {
+    const exp = document.getElementById(`exp-${name}`).value;
+    if (!exp) return alert("Please select an expiration date.");
+
+    let fridge = JSON.parse(localStorage.getItem('fridgeItems')) || [];
+    fridge.push({ name, expiration: exp });
+    localStorage.setItem('fridgeItems', JSON.stringify(fridge));
+    alert(`${name} added to fridge!`);
+  }
+</script>
+
+</body>
+</html>
+
